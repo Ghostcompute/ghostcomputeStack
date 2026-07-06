@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://api.ghostcompute.tech/api/:path*" },
+    { "source": "/v1/:path*", "destination": "https://api.ghostcompute.tech/v1/:path*" }
+  ]
+}

@@ -1,0 +1,416 @@
+{
+  "address": "FqFRLgewksUxwrtni1oXNAmcw2ZJ4oAWZWPHJgU9ACgo",
+  "metadata": {
+    "name": "worker_registry",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "instructions": [
+    {
+      "name": "deregister_worker",
+      "discriminator": [
+        169,
+        158,
+        198,
+        70,
+        128,
+        77,
+        176,
+        167
+      ],
+      "accounts": [
+        {
+          "name": "worker",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  111,
+                  114,
+                  107,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "drop_confidential",
+      "docs": [
+        "Fail-closed (P8): an oracle can drop a worker from confidential routing",
+        "when its attestation goes stale or verification fails."
+      ],
+      "discriminator": [
+        160,
+        209,
+        235,
+        76,
+        53,
+        173,
+        43,
+        182
+      ],
+      "accounts": [
+        {
+          "name": "worker",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  111,
+                  114,
+                  107,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "worker.pubkey",
+                "account": "WorkerAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "oracle",
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "register_worker",
+      "discriminator": [
+        22,
+        253,
+        23,
+        225,
+        230,
+        31,
+        6,
+        192
+      ],
+      "accounts": [
+        {
+          "name": "worker",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  111,
+                  114,
+                  107,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "RegisterWorkerParams"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "update_attestation",
+      "docs": [
+        "Oracle updates the worker's attestation fields after the off-chain",
+        "Attestation Verifier (P3) reaches a verdict. `confidential_ok`",
+        "gates confidential routing; `last_attest` drives fail-closed staleness."
+      ],
+      "discriminator": [
+        251,
+        244,
+        74,
+        129,
+        95,
+        36,
+        57,
+        101
+      ],
+      "accounts": [
+        {
+          "name": "worker",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  111,
+                  114,
+                  107,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "worker.pubkey",
+                "account": "WorkerAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "oracle",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "confidential_ok",
+          "type": "bool"
+        },
+        {
+          "name": "verify_pass_rate",
+          "type": "u16"
+        },
+        {
+          "name": "attest_uptime",
+          "type": "u16"
+        },
+        {
+          "name": "last_attest",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "update_reputation",
+      "discriminator": [
+        194,
+        220,
+        43,
+        201,
+        54,
+        209,
+        49,
+        178
+      ],
+      "accounts": [
+        {
+          "name": "worker",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  111,
+                  114,
+                  107,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "worker.pubkey",
+                "account": "WorkerAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "oracle",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "delta",
+          "type": "i16"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "WorkerAccount",
+      "discriminator": [
+        49,
+        236,
+        66,
+        81,
+        213,
+        189,
+        109,
+        232
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "AttestationUpdated",
+      "discriminator": [
+        144,
+        39,
+        96,
+        142,
+        34,
+        173,
+        37,
+        75
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "AttestationUpdated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "worker",
+            "type": "pubkey"
+          },
+          {
+            "name": "confidential_ok",
+            "type": "bool"
+          },
+          {
+            "name": "last_attest",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RegisterWorkerParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "model_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "tok_per_sec",
+            "type": "u32"
+          },
+          {
+            "name": "tee_type",
+            "type": "u8"
+          },
+          {
+            "name": "vram_gb",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WorkerAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "pubkey",
+            "type": "pubkey"
+          },
+          {
+            "name": "model_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "tok_per_sec",
+            "type": "u32"
+          },
+          {
+            "name": "tee_type",
+            "type": "u8"
+          },
+          {
+            "name": "vram_gb",
+            "type": "u16"
+          },
+          {
+            "name": "reputation",
+            "type": "u16"
+          },
+          {
+            "name": "registered_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "confidential_ok",
+            "type": "bool"
+          },
+          {
+            "name": "verify_pass_rate",
+            "type": "u16"
+          },
+          {
+            "name": "attest_uptime",
+            "type": "u16"
+          },
+          {
+            "name": "last_attest",
+            "type": "i64"
+          }
+        ]
+      }
+    }
+  ]
+}

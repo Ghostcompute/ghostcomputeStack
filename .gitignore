@@ -1,0 +1,66 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+.output
+.vinxi
+.tanstack/**
+.nitro
+*.local
+
+# Env / secrets (keep .env.example tracked)
+.env
+.env.*
+!.env.example
+
+# Supabase CLI local cache
+supabase/.temp/
+
+# Wrangler / Cloudflare
+.wrangler/
+.dev.vars
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vercel
+
+# Sanitized public export build dir
+.public-export
+
+# Private dev hand-out (contains token) — never commit
+GHOSTCOMPUTE_DEV_SETUP.md
+
+# Local Solana keypair exports (derived from DEV_WALLET)
+.keys/
+target/
+
+# Python virtual environments + PyInstaller build artifacts
+.venv/
+venv/
+worker/python/build/
+worker/python/dist/
+worker/python/*.spec
+apps/ghost-worker/worker-python/.venv/
+apps/ghost-worker/worker-python/build/
+apps/ghost-worker/worker-python/dist/
+apps/ghost-worker/worker-python/*.spec
+apps/ghost-worker/.env
+apps/ghost-worker/src-tauri/resources/worker-python/ghost-daemon
+apps/ghost-worker/src-tauri/resources/worker-python/ghost-daemon.exe
+.env*
