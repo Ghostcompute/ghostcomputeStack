@@ -1,0 +1,233 @@
+{
+  "address": "6t3oGF7eUHHj1ZiRZcr68i9AXgdt1GothfdLbffJLzKr",
+  "metadata": {
+    "name": "attestation",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "instructions": [
+    {
+      "name": "submit_attestation",
+      "docs": [
+        "Submit a TEE attestation report for a worker.",
+        "Verification logic (owned) is called via CPI or oracle."
+      ],
+      "discriminator": [
+        238,
+        220,
+        255,
+        105,
+        183,
+        211,
+        40,
+        83
+      ],
+      "accounts": [
+        {
+          "name": "attestation_record",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  116,
+                  116,
+                  101,
+                  115,
+                  116,
+                  97,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "worker"
+              }
+            ]
+          }
+        },
+        {
+          "name": "worker",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "tee_type",
+          "type": "u8"
+        },
+        {
+          "name": "report_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "timestamp",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "verify_attestation",
+      "docs": [
+        "Oracle marks attestation as verified after checking the TEE cert chain."
+      ],
+      "discriminator": [
+        144,
+        30,
+        116,
+        186,
+        33,
+        176,
+        35,
+        60
+      ],
+      "accounts": [
+        {
+          "name": "attestation_record",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  116,
+                  116,
+                  101,
+                  115,
+                  116,
+                  97,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "attestation_record.worker",
+                "account": "AttestationRecord"
+              }
+            ]
+          }
+        },
+        {
+          "name": "oracle",
+          "signer": true
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "AttestationRecord",
+      "discriminator": [
+        33,
+        137,
+        13,
+        193,
+        39,
+        232,
+        216,
+        63
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "AttestationVerified",
+      "discriminator": [
+        98,
+        148,
+        167,
+        161,
+        88,
+        59,
+        107,
+        231
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "AlreadyVerified",
+      "msg": "Already verified"
+    }
+  ],
+  "types": [
+    {
+      "name": "AttestationRecord",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "worker",
+            "type": "pubkey"
+          },
+          {
+            "name": "tee_type",
+            "type": "u8"
+          },
+          {
+            "name": "report_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "verified",
+            "type": "bool"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "verified_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AttestationVerified",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "worker",
+            "type": "pubkey"
+          },
+          {
+            "name": "tee_type",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}

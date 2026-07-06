@@ -1,0 +1,118 @@
+# Builds Ghost Worker desktop installers after publish-public.sh force-pushes to main.
+# Creates a GitHub Release with Windows / macOS / Linux artifacts.
+
+name: Ghost Worker Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ghost-worker-release
+  cancel-in-progress: true
+
+jobs:
+  publish-tauri:
+    # Only auto-build on sanitized public snapshots (manual runs always allowed).
+    if: github.event_name == 'workflow_dispatch' || github.event.head_commit.author.name == 'GhostCompute'
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: macos-latest
+            args: '--target aarch64-apple-darwin'
+          - platform: macos-latest
+            args: '--target x86_64-apple-darwin'
+          - platform: ubuntu-22.04
+            args: ''
+          - platform: windows-latest
+            args: ''
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Linux build dependencies
+        if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libappindicator3-dev \
+            librsvg2-dev \
+            patchelf \
+            xdg-utils \
+            python3 \
+            python3-venv \
+            python3-pip
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: pnpm
+
+      - uses: actions/setup-python@v5
+        if: matrix.platform != 'ubuntu-22.04'
+        with:
+          python-version: '3.12'
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: apps/ghost-worker/src-tauri -> target
+
+      - name: Install frontend dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Ghost Worker
+        working-directory: apps/ghost-worker
+        run: |
+          node scripts/prepare-daemon.mjs
+          pnpm run build
+          pnpm exec tauri build ${{ matrix.args }}
+
+      - name: Rename release artifacts for clarity
+        run: node apps/ghost-worker/scripts/rename-release-artifacts.mjs "${{ matrix.args }}"
+
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          projectPath: apps/ghost-worker
+          uploadOnly: true
+          args: ${{ matrix.args }}
+          tagName: ghost-worker-build-${{ github.run_number }}
+          releaseName: Ghost Worker build ${{ github.run_number }}
+          releaseBody: |
+            Automated Ghost Worker release from the public snapshot publish.
+
+            **Commit:** ${{ github.sha }} · **Workflow run:** ${{ github.run_number }}
+
+            ## Which installer do I need?
+
+            | Download this file | For |
+            | --- | --- |
+            | `Ghost-Worker-*-macOS-Intel.dmg` | **Mac with Intel** (pre-2020 MacBook Pro, iMac, etc.) |
+            | `Ghost-Worker-*-macOS-Apple-Silicon-M1-M2-M3.dmg` | **Mac with Apple Silicon** (M1, M2, M3, M4) |
+            | `Ghost-Worker-*-Windows-Intel-AMD64-Setup.exe` | **Windows 10/11** (recommended) |
+            | `Ghost-Worker-*-Windows-Intel-AMD64.msi` | Windows (MSI / managed installs) |
+            | `Ghost-Worker-*-Linux-Intel-AMD64.AppImage` | **Linux** portable (most distros) |
+            | `Ghost-Worker-*-Linux-Intel-AMD64.deb` | Linux Debian / Ubuntu / Mint |
+            | `Ghost-Worker-*-Linux-Intel-AMD64.rpm` | Linux Fedora / RHEL / openSUSE |
+
+            Prefer `.dmg` on Mac and `.AppImage` or `.deb` on Linux. The `.app.tar.gz` files are for manual installs only.
+          releaseDraft: false
+          prerelease: false
