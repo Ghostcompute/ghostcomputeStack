@@ -1,0 +1,3 @@
+# Linux / macOS — installed via PyPI by prepare-vllm.mjs
+# Windows uses SystemPanic/vllm-windows wheels instead (see scripts/prepare-vllm.mjs)
+vllm>=0.6.0

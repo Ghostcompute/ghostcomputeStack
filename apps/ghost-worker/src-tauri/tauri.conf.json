@@ -1,0 +1,53 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Ghost Worker",
+  "version": "0.1.0",
+  "identifier": "com.ghostcompute.worker",
+  "build": {
+    "beforeDevCommand": "node scripts/prepare-daemon.mjs && npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "node scripts/prepare-daemon.mjs && npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Ghost Worker",
+        "width": 1280,
+        "height": 860,
+        "minWidth": 1080,
+        "minHeight": 720,
+        "maxWidth": 1280,
+        "maxHeight": 860,
+        "maximizable": false,
+        "decorations": false,
+        "backgroundColor": "#05070a"
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "resources": {
+      "resources/worker-python/*": "worker-python/"
+    },
+    "icon": [
+      "icons/32x32.png",
+      "icons/64x64.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "nsis": {
+        "installerIcon": "icons/icon.ico"
+      }
+    }
+  }
+}

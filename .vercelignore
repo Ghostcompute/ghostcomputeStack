@@ -1,0 +1,53 @@
+# Vercel CLI upload filter — frontend deploy only.
+# Keeps workspace package.json files pnpm needs; drops heavy non-web paths.
+
+# Desktop app (Tauri, Python daemon, release tooling)
+apps/ghost-worker/
+
+# Duplicate web tree — production build runs from repo root (src/, public/)
+apps/web/
+
+# GPU worker node (off-Vercel)
+worker/
+
+# Solana / Anchor on-chain programs
+programs/
+target/
+.anchor/
+
+# Local build + export artifacts
+.public-export/
+.output/
+.wrangler/
+.nitro/
+.tanstack/
+dist/
+dist-ssr/
+.vinxi/
+
+# Ops / migration scripts (not used by vite build)
+scripts/
+
+# Supabase CLI cache
+supabase/
+
+# Python cruft
+**/__pycache__/
+**/*.pyc
+**/.venv/
+**/venv/
+
+# Docs (README stays if present)
+*.md
+!README.md
+
+# Secrets / local env (also gitignored)
+.env
+.env.*
+!.env.example
+
+# Editor / OS noise
+.git/
+.vscode/
+.idea/
+.DS_Store
