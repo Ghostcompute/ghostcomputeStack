@@ -1,0 +1,22 @@
+{
+  "name": "@ghost-compute/solana",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.30.1",
+    "@noble/curves": "^1.9.7",
+    "@solana/web3.js": "^1.95.3",
+    "@solana/spl-token": "^0.4.8",
+    "@ghost-compute/shared": "workspace:*",
+    "bs58": "^6.0.0",
+    "bn.js": "^5.2.4",
+    "@supabase/supabase-js": "^2.45.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}

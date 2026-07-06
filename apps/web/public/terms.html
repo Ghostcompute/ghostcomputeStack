@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ghost Compute — Terms & Privacy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg:#05070a; --surface:#0b1016; --line:rgba(220,220,220,.10); --line-strong:rgba(220,220,220,.18);
+    --text:#ececec; --muted:#9aa1ab; --accent:#e6e6e6;
+    --display:"Inter",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{background:var(--bg);color:var(--text);font-family:var(--display);-webkit-font-smoothing:antialiased}
+  body{
+    background:
+      radial-gradient(900px 600px at 80% -10%, rgba(220,220,220,.05), transparent 60%),
+      radial-gradient(900px 500px at -10% 30%, rgba(180,180,180,.04), transparent 60%),
+      linear-gradient(180deg,#05070a 0%, #03060a 100%);
+    min-height:100vh;
+  }
+  .grid-bg{
+    position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background-image:
+      linear-gradient(rgba(220,220,220,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(220,220,220,.035) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image:radial-gradient(circle at 50% 20%, #000 0%, transparent 75%);
+  }
+  .ghost-aura{
+    position:fixed;left:50%;top:6rem;transform:translateX(-50%);
+    width:520px;height:520px;pointer-events:none;z-index:0;opacity:.05;
+    background:url('/__l5e/assets-v1/86682dfb-d8c8-48ad-a17a-1b938b6ff02b/ghost-logo.png') center/contain no-repeat;
+    filter:blur(2px) saturate(0);
+  }
+  .mono{font-family:var(--mono)}
+  .kicker{font-family:var(--mono);font-size:.62rem;letter-spacing:.32em;text-transform:uppercase;color:var(--muted)}
+  .nav{position:sticky;top:0;z-index:50;background:rgba(5,7,10,.78);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .brand-mark{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 30% 20%, rgba(255,255,255,.08), rgba(255,255,255,.02));border:1px solid var(--line-strong);overflow:hidden}
+  .brand-mark img{width:78%;height:78%;object-fit:contain;filter:drop-shadow(0 4px 14px rgba(220,220,220,.25))}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:#0a0a0a;background:linear-gradient(180deg,#f4f4f4,#cfcfcf);border:1px solid #d8d8d8;font-weight:700;text-decoration:none}
+  .btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line-strong)}
+  .card{background:linear-gradient(180deg, rgba(255,255,255,.022), rgba(255,255,255,.005));border:1px solid var(--line);border-radius:18px}
+  h1{font-weight:800;letter-spacing:-.025em}
+  h2{font-weight:800;letter-spacing:-.02em;color:#f5f5f5}
+  h3{font-weight:700;color:#ececec}
+  p, li{color:#c5cad1;line-height:1.7}
+  a.link{color:#ececec;border-bottom:1px solid rgba(220,220,220,.3)}
+  .toc a{color:var(--muted);text-decoration:none;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase}
+  .toc a:hover{color:var(--text)}
+  .section-num{font-family:var(--mono);font-size:.62rem;letter-spacing:.28em;color:var(--muted);text-transform:uppercase}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="ghost-aura"></div>
+
+<header class="nav">
+  <div class="mx-auto max-w-[80rem] flex items-center justify-between px-5 py-4">
+    <a href="/" class="flex items-center gap-3" style="text-decoration:none;color:inherit">
+      <span class="brand-mark"><img src="/__l5e/assets-v1/86682dfb-d8c8-48ad-a17a-1b938b6ff02b/ghost-logo.png" alt="Ghost"/></span>
+      <span class="font-extrabold tracking-[-.02em]">GHOST <span class="text-[var(--muted)] font-medium">/ Legal</span></span>
+    </a>
+    <div class="flex items-center gap-3">
+      <a href="/" class="btn ghost">← Back to site</a>
+      <a href="/dashboard" class="btn">Launch Console</a>
+    </div>
+  </div>
+</header>
+
+<main class="relative z-10 mx-auto max-w-[80rem] px-5 py-16">
+  <div class="max-w-3xl">
+    <p class="kicker">// Legal · Effective June 28, 2026</p>
+    <h1 class="mt-4 text-5xl sm:text-6xl">Terms of Service &amp; Privacy Policy</h1>
+    <p class="mt-6 text-lg">
+      Ghost Compute is a permissionless confidential GPU network. Compute is sealed by hardware,
+      proven by attestation, and settled on Solana. These terms describe how the substrate, its
+      flagship applications, and the GHST token economy may be used — and how confidentiality is
+      preserved at every layer.
+    </p>
+  </div>
+
+  <div class="mt-12 grid grid-cols-12 gap-8">
+    <aside class="col-span-12 lg:col-span-3">
+      <div class="card p-5 sticky top-24 toc">
+        <p class="kicker mb-3">// Contents</p>
+        <ul class="space-y-2">
+          <li><a href="#scope">01 · Scope</a></li>
+          <li><a href="#substrate">02 · The Substrate</a></li>
+          <li><a href="#operators">03 · Operators (Ghosts)</a></li>
+          <li><a href="#consumers">04 · Compute Consumers</a></li>
+          <li><a href="#token">05 · GHST Token</a></li>
+          <li><a href="#privacy">06 · Privacy Envelope</a></li>
+          <li><a href="#attestation">07 · Attestation &amp; Audit</a></li>
+          <li><a href="#liability">08 · Liability &amp; Fail-Closed</a></li>
+          <li><a href="#dataretention">09 · Data Retention</a></li>
+          <li><a href="#governance">10 · Governance</a></li>
+          <li><a href="#updates">11 · Updates &amp; Contact</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <article class="col-span-12 lg:col-span-9 space-y-12">
+
+      <section id="scope" class="card p-8">
+        <p class="section-num">01 · Scope</p>
+        <h2 class="mt-2 text-3xl">Who these terms cover</h2>
+        <p class="mt-4">
+          These terms govern access to and use of the Ghost Compute substrate, the Ghost Worker
+          desktop client, the Inference Console, the Confidential Dark Pool, the Attestation
+          Explorer, the Solana Anchor programs, and the GHST token. By running a Ghost, submitting
+          a compute job, or holding GHST, you accept these terms.
+        </p>
+        <p class="mt-3">
+          Ghost Compute fuses two missing pieces: compute networks lack privacy; privacy protocols
+          lack compute. Everything below follows from that thesis.
+        </p>
+      </section>
+
+      <section id="substrate" class="card p-8">
+        <p class="section-num">02 · The Substrate</p>
+        <h2 class="mt-2 text-3xl">Confidential GPU network</h2>
+        <p class="mt-4">
+          The substrate is a permissionless network of confidential GPUs — NVIDIA H100 / H200
+          Confidential Compute and AMD SEV-SNP enclaves — coordinated by six Solana Anchor
+          programs. Every job is bound to a hardware attestation. A broken attestation halts the
+          job rather than leaking plaintext: the substrate fails closed by design.
+        </p>
+        <h3 class="mt-6 text-lg">Five subsystems</h3>
+        <ul class="mt-3 list-disc pl-5 space-y-2">
+          <li>Confidential Worker runtime (Tauri-based Ghost Worker client).</li>
+          <li>Layered Privacy Envelope: TEE · ZK · MPC · FHE.</li>
+          <li>Private Inference via x402 pay-per-call.</li>
+          <li>Dark-Pool Engine with TEE/FHE matching and Jito-bundle settlement.</li>
+          <li>Six Solana Anchor programs forming the onchain control plane.</li>
+        </ul>
+      </section>
+
+      <section id="operators" class="card p-8">
+        <p class="section-num">03 · Operators (Ghosts)</p>
+        <h2 class="mt-2 text-3xl">Running a Ghost</h2>
+        <p class="mt-4">
+          Operators contribute confidential GPU capacity by running Ghost Worker. The client
+          detects supported TEEs, registers the node, signs hardware attestations, executes sealed
+          jobs, and receives payouts through Confidential Balances.
+        </p>
+        <ul class="mt-4 list-disc pl-5 space-y-2">
+          <li>Operators must run unmodified, audited builds of Ghost Worker.</li>
+          <li>Tampering with attestation, the envelope, or the runtime forfeits stake and rewards.</li>
+          <li>Operators do not observe job plaintext, prompts, weights, or order flow at any time.</li>
+          <li>Earnings are paid in GHST via Confidential Balances and may be subject to staking multipliers.</li>
+        </ul>
+      </section>
+
+      <section id="consumers" class="card p-8">
+        <p class="section-num">04 · Compute Consumers</p>
+        <h2 class="mt-2 text-3xl">Submitting confidential jobs</h2>
+        <p class="mt-4">
+          Consumers — hedge funds, AI agents, enterprises, regulated industries, and privacy
+          protocols — submit encrypted workloads to the substrate. Two primary surfaces are
+          exposed:
+        </p>
+        <ul class="mt-4 list-disc pl-5 space-y-2">
+          <li><b class="text-white">Private Inference</b> — vLLM-style API with x402 pay-per-call. Prompt, system message, memory, and tool calls remain sealed inside the enclave.</li>
+          <li><b class="text-white">Confidential Dark Pool</b> — encrypted order submission, TEE/FHE matching, MEV-proof execution, confidential settlement via Jito bundles.</li>
+        </ul>
+        <p class="mt-3">
+          Consumers are responsible for the lawfulness of the workloads they submit. Use of the
+          substrate to violate sanctions, target critical infrastructure, or process material the
+          consumer has no right to process is prohibited.
+        </p>
+      </section>
+
+      <section id="token" class="card p-8">
+        <p class="section-num">05 · GHST Token</p>
+        <h2 class="mt-2 text-3xl">Token economy</h2>
+        <p class="mt-4">
+          GHST is an SPL Token-2022 asset with a TransferHook fee collector. Confidential Balances
+          shield operator payouts. Fee routing distributes value as follows:
+        </p>
+        <ul class="mt-4 list-disc pl-5 space-y-2">
+          <li>60% to stakers</li>
+          <li>20% to workers</li>
+          <li>10% burned</li>
+          <li>10% to treasury</li>
+        </ul>
+        <p class="mt-4">
+          GHST is a utility token used to pay for confidential compute, dark-pool execution, and
+          governance. It is not a security, deposit, or claim on Ghost Compute revenue. Markets,
+          prices, and liquidity are provided by third parties and are not warranted by Ghost
+          Compute.
+        </p>
+      </section>
+
+      <section id="privacy" class="card p-8">
+        <p class="section-num">06 · Privacy Envelope</p>
+        <h2 class="mt-2 text-3xl">What stays sealed</h2>
+        <p class="mt-4">
+          The Privacy Envelope layers four complementary primitives — TEE for hardware isolation,
+          ZK for verifiable computation without disclosure, MPC for distributed key management,
+          and FHE for matching over encrypted state. The result: plaintext is unreachable to
+          operators, validators, Ghost Compute, and any third party.
+        </p>
+        <ul class="mt-4 list-disc pl-5 space-y-2">
+          <li><b class="text-white">We do not observe</b> prompts, weights, order books, or settlement deltas.</li>
+          <li><b class="text-white">We cannot decrypt</b> data sealed to a hardware attestation we did not issue.</li>
+          <li><b class="text-white">We publish</b> attestation digests, audit reports, and the source of every audited release.</li>
+        </ul>
+      </section>
+
+      <section id="attestation" class="card p-8">
+        <p class="section-num">07 · Attestation &amp; Audit</p>
+        <h2 class="mt-2 text-3xl">Multi-proof verification</h2>
+        <p class="mt-4">
+          Every confidential job is bound to a hardware attestation verified onchain. Multi-proof
+          verification (TEE quote + ZK proof + onchain anchor) is published to the Attestation
+          Explorer. Audits are performed by independent firms:
+        </p>
+        <ul class="mt-4 list-disc pl-5 space-y-2">
+          <li>Substrate &amp; Private Inference — OtterSec</li>
+          <li>Confidential Dark Pool — Trail of Bits and Zellic</li>
+          <li>GHST · Token-2022 &amp; settlement — Halborn</li>
+        </ul>
+      </section>
+
+      <section id="liability" class="card p-8">
+        <p class="section-num">08 · Liability &amp; Fail-Closed</p>
+        <h2 class="mt-2 text-3xl">Fails closed, not open</h2>
+        <p class="mt-4">
+          The substrate is designed to fail closed: a broken attestation halts the job rather than
+          leaking plaintext. Ghost Compute does not warrant uptime, throughput, market outcomes,
+          or token price, and is not liable for indirect, incidental, or consequential damages
+          arising from use of the substrate. The substrate is provided “as-is” to the extent
+          permitted by applicable law.
+        </p>
+      </section>
+
+      <section id="dataretention" class="card p-8">
+        <p class="section-num">09 · Data Retention</p>
+        <h2 class="mt-2 text-3xl">What we keep, what we cannot keep</h2>
+        <p class="mt-4">
+          Because plaintext never leaves the enclave, Ghost Compute has nothing to retain about
+          your workloads. We retain only the public artifacts required to operate a verifiable
+          network:
+        </p>
+        <ul class="mt-4 list-disc pl-5 space-y-2">
+          <li>Attestation digests, public proofs, and onchain anchors.</li>
+          <li>Aggregate, non-identifying telemetry from Ghost Worker (version, TEE class, uptime).</li>
+          <li>GHST transfer history visible on Solana — shielded amounts via Confidential Balances.</li>
+        </ul>
+        <p class="mt-3">
+          We do not retain prompts, weights, order books, settlement deltas, or any plaintext
+          state from confidential jobs. We cannot produce data we never possessed.
+        </p>
+      </section>
+
+      <section id="governance" class="card p-8">
+        <p class="section-num">10 · Governance</p>
+        <h2 class="mt-2 text-3xl">Onchain policy</h2>
+        <p class="mt-4">
+          Privacy parameters, supported enclaves, verification policy, and treasury allocation are
+          governed onchain. Governance proposals are executed without revealing what was computed.
+          Material changes to these terms are announced in the Attestation Explorer and through
+          official channels at least 14 days before they take effect, except where shorter notice
+          is required by law or to address a security incident.
+        </p>
+      </section>
+
+      <section id="updates" class="card p-8">
+        <p class="section-num">11 · Updates &amp; Contact</p>
+        <h2 class="mt-2 text-3xl">Staying current</h2>
+        <p class="mt-4">
+          These terms may be updated as the substrate evolves through the four-phase rollout
+          (Substrate + Private Inference → Confidential Dark Pool → Token + Settlement → Explorer
+          + Governance). The effective date at the top of this document reflects the current
+          version. Continued use of the substrate after an update constitutes acceptance.
+        </p>
+        <p class="mt-4">
+          For governance, audit, or integration inquiries, follow Ghost Compute on
+          <a href="https://x.com/Gh0stCompute" target="_blank" rel="noopener" class="link">X</a>.
+        </p>
+      </section>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4">
+        <p class="text-sm text-[var(--muted)]">© 2026 Ghost Compute. Sealed by hardware, proven by attestation.</p>
+        <div class="flex gap-3">
+          <a href="/" class="btn ghost">← Back to site</a>
+          <a href="/dashboard" class="btn">Launch Console</a>
+        </div>
+      </div>
+
+    </article>
+  </div>
+</main>
+
+</body>
+</html>
