@@ -1,0 +1,11 @@
+export const ORCHESTRATOR_URL  = process.env.ORCHESTRATOR_URL  ?? 'http://localhost:3001';
+export const VLLM_URL          = process.env.VLLM_URL           ?? 'http://localhost:8000';
+export const WORKER_TOKEN      = process.env.WORKER_TOKEN        ?? '';
+export const WORKER_PUBKEY     = process.env.WORKER_PUBKEY       ?? '';
+export const GPU_MODEL         = process.env.GPU_MODEL           ?? 'unknown';
+export const VRAM_GB           = parseInt(process.env.VRAM_GB    ?? '0', 10);
+export const DEFAULT_MODEL     = process.env.DEFAULT_MODEL       ?? 'meta-llama/Meta-Llama-3.1-8B-Instruct';
+export const MAX_TOOL_ROUNDS   = 10;
+export const BENCHMARK_TOKENS  = 200;
+export const TEE_TYPE          = (process.env.TEE_TYPE ?? 'none') as 'nvidia_cc' | 'amd_sev_snp' | 'none';
+export const ATTESTATION_ENDPOINT = process.env.ATTESTATION_ENDPOINT ?? '';

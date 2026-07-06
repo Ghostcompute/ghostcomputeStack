@@ -1,0 +1,617 @@
+{
+  "address": "DBm8msZ7Z7fM1AX7NQYpmrQS2g55AKxSUVAcFNmo6vqk",
+  "metadata": {
+    "name": "dark_pool",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "instructions": [
+    {
+      "name": "cancel_order",
+      "discriminator": [
+        95,
+        129,
+        237,
+        240,
+        8,
+        49,
+        223,
+        132
+      ],
+      "accounts": [
+        {
+          "name": "order",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  111,
+                  114,
+                  100,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "order.id",
+                "account": "OrderAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner",
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "cancel_sealed_order",
+      "discriminator": [
+        44,
+        11,
+        113,
+        115,
+        212,
+        58,
+        14,
+        247
+      ],
+      "accounts": [
+        {
+          "name": "sealed_order",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  101,
+                  97,
+                  108,
+                  101,
+                  100,
+                  95,
+                  111,
+                  114,
+                  100,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "sealed_order.id",
+                "account": "SealedOrderAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner",
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "place_order",
+      "discriminator": [
+        51,
+        194,
+        155,
+        175,
+        109,
+        130,
+        96,
+        106
+      ],
+      "accounts": [
+        {
+          "name": "order",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  111,
+                  114,
+                  100,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "params.id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "base_mint"
+        },
+        {
+          "name": "quote_mint"
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "PlaceOrderParams"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "settle_match",
+      "discriminator": [
+        71,
+        124,
+        117,
+        96,
+        191,
+        217,
+        116,
+        24
+      ],
+      "accounts": [
+        {
+          "name": "buy_order",
+          "writable": true
+        },
+        {
+          "name": "sell_order",
+          "writable": true
+        },
+        {
+          "name": "oracle",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "match_id",
+          "type": {
+            "array": [
+              "u8",
+              16
+            ]
+          }
+        },
+        {
+          "name": "fill_amount",
+          "type": "u64"
+        },
+        {
+          "name": "fill_price",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "settle_sealed_fill",
+      "docs": [
+        "Settle a matched sealed order — reveals ONLY the cleared fill."
+      ],
+      "discriminator": [
+        233,
+        211,
+        94,
+        140,
+        145,
+        132,
+        80,
+        156
+      ],
+      "accounts": [
+        {
+          "name": "buy_order",
+          "writable": true
+        },
+        {
+          "name": "sell_order",
+          "writable": true
+        },
+        {
+          "name": "oracle",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "match_id",
+          "type": {
+            "array": [
+              "u8",
+              16
+            ]
+          }
+        },
+        {
+          "name": "fill_amount",
+          "type": "u64"
+        },
+        {
+          "name": "fill_price",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "submit_sealed_order",
+      "discriminator": [
+        26,
+        219,
+        216,
+        60,
+        127,
+        68,
+        105,
+        39
+      ],
+      "accounts": [
+        {
+          "name": "sealed_order",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  101,
+                  97,
+                  108,
+                  101,
+                  100,
+                  95,
+                  111,
+                  114,
+                  100,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "params.id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "SealedOrderParams"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "OrderAccount",
+      "discriminator": [
+        79,
+        67,
+        112,
+        155,
+        214,
+        14,
+        32,
+        55
+      ]
+    },
+    {
+      "name": "SealedOrderAccount",
+      "discriminator": [
+        194,
+        135,
+        223,
+        181,
+        224,
+        222,
+        186,
+        5
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "MatchEvent",
+      "discriminator": [
+        0,
+        93,
+        216,
+        57,
+        140,
+        40,
+        66,
+        151
+      ]
+    },
+    {
+      "name": "SealedOrderSubmitted",
+      "discriminator": [
+        51,
+        184,
+        196,
+        234,
+        245,
+        35,
+        118,
+        29
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "NotOpen",
+      "msg": "Order is not open"
+    }
+  ],
+  "types": [
+    {
+      "name": "MatchEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "match_id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "fill_amount",
+            "type": "u64"
+          },
+          {
+            "name": "fill_price",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OrderAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "side",
+            "type": "u8"
+          },
+          {
+            "name": "base_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "quote_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "price",
+            "type": "u64"
+          },
+          {
+            "name": "guarantee",
+            "type": "u8"
+          },
+          {
+            "name": "status",
+            "type": "u8"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PlaceOrderParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "side",
+            "type": "u8"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "price",
+            "type": "u64"
+          },
+          {
+            "name": "guarantee",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SealedOrderAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "commit_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "margin",
+            "type": "u64"
+          },
+          {
+            "name": "guarantee",
+            "type": "u8"
+          },
+          {
+            "name": "status",
+            "type": "u8"
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SealedOrderParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "commit_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "margin",
+            "type": "u64"
+          },
+          {
+            "name": "guarantee",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SealedOrderSubmitted",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "commit_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+websocket-client>=1.8.0
+certifi>=2024.2.2
+huggingface_hub>=0.26.0
+pyamdgpuinfo>=2.1.0; sys_platform == 'linux'
+nvidia-ml-py>=12.0.0

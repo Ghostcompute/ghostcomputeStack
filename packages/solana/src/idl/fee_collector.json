@@ -1,0 +1,184 @@
+{
+  "address": "AfLg5yqWBayDubpFPn8VAks2WmFmceJTQLWx7oHXnwq",
+  "metadata": {
+    "name": "fee_collector",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "instructions": [
+    {
+      "name": "distribute",
+      "discriminator": [
+        191,
+        44,
+        223,
+        207,
+        164,
+        236,
+        126,
+        61
+      ],
+      "accounts": [
+        {
+          "name": "fee_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  102,
+                  101,
+                  101,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "total",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initialize_fee_vault",
+      "discriminator": [
+        185,
+        140,
+        228,
+        234,
+        79,
+        203,
+        252,
+        50
+      ],
+      "accounts": [
+        {
+          "name": "fee_vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  102,
+                  101,
+                  101,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "FeeVault",
+      "discriminator": [
+        192,
+        178,
+        69,
+        232,
+        58,
+        149,
+        157,
+        132
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "FeeDistributed",
+      "discriminator": [
+        6,
+        133,
+        116,
+        50,
+        44,
+        151,
+        179,
+        65
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "FeeDistributed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "total",
+            "type": "u64"
+          },
+          {
+            "name": "stakers",
+            "type": "u64"
+          },
+          {
+            "name": "workers",
+            "type": "u64"
+          },
+          {
+            "name": "burn",
+            "type": "u64"
+          },
+          {
+            "name": "treasury",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FeeVault",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "total_collected",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}
